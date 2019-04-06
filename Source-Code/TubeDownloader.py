@@ -2,7 +2,7 @@ import pytube
 
 #video_link: str = input("Input Your Link: ")
 
-video_link = "https://www.youtube.com/watch?v=SMk2m5uasdM"
+video_link = "https://www.youtube.com/watch?v=a1wvgLkyVfQ"
 yt = pytube.YouTube(video_link)
 videos = yt.streams.first()
-videos.download ('C://desktop')
+videos.download('C:\\Users\\Michael Octavianus K\\Desktop\\Opening')
