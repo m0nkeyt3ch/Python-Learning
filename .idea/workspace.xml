@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afabe7f5-1e31-447a-b131-6a6c39a3f775" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Source-Code/TubeDownloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source-Code/TubeDownloader.py" afterDir="false" />
-    </list>
+    <list default="true" id="afabe7f5-1e31-447a-b131-6a6c39a3f775" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +186,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="841" y="265" width="974" height="1047" extended-state="0" />
+    <frame x="841" y="265" width="974" height="1047" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.36004272" />
