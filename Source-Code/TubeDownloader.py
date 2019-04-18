@@ -1,5 +1,5 @@
 import pytube
-import pyperclip
+#import pyperclip
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import messagebox
@@ -30,7 +30,7 @@ def cancel():
 # Main
 # create GUI
 root = Tk()
--
+
 # Title for program
 root.title("Youtube Downloader")
 
