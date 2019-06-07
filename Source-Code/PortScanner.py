@@ -8,6 +8,7 @@ subprocess.call('cls', shell=True)
 
 #Ask for input
 remoteServer = input("Enter host to scan: ")
+socketRange = int(input("Enter range of port: "))
 remoteServerIP = socket.gethostbyname(remoteServer)
 
 print("Scanning remote host", remoteServerIP)
@@ -16,12 +17,13 @@ print("Scanning remote host", remoteServerIP)
 t1 = datetime.now()
 
 try:
-    for port in range(11025):
-        sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        result = sock.connect_ex((remoteServerIP, port))
+    for port in range(socketRange):
+        sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM) #Creates a stream socket
+        #SOCK_STREAM 为Socket type TCP connections
+        result = sock.connect_ex((remoteServerIP, port)) #sock.connect_ex((remoteServerIP, port)) return 0 if success
         if result == 0:
             print("Port {}:   Open".format(port))
-        sock.close()
+    sock.close()
 
 except KeyboardInterrupt:
     print("Ctrl+C pressed")
