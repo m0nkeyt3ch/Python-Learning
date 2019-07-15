@@ -20,7 +20,7 @@ def download():
         video_link = link_input.get()
         yt = pytube.YouTube(video_link)
         videos = yt.streams.first()
-        videos.download('C:\\Users\\Michael\\Videos')
+        videos.download('C:\\Users\\Michael\\Opening Video')
 
 
 def cancel():
