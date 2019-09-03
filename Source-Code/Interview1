@@ -1,0 +1,17 @@
+def min(list):
+    min = int(list[0])
+    min2 = int(list[1])
+    for i in list:
+        #$print(i)
+        if i < min:
+            min2 = min
+            min = i
+        elif i < min2:
+            min2 = i
+            #min = min
+    return min2, min
+
+#main
+arr = [3, 2, 5, 6]
+print(min(arr))
+#min(arr)
