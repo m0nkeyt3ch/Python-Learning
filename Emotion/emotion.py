@@ -1,8 +1,7 @@
+import numpy
 import pandas as pd
 import matplotlib.pyplot as plt
 import jieba
-
-# encoding='utf-8'
 
 angry_data = []
 disgusted_data = []
@@ -31,32 +30,8 @@ sad_data.append(sad_txt)
 scared_txt = open("scared.txt", "r", encoding='utf-8-sig').read().splitlines()
 scared_data.append(scared_txt)
 
+weibo_txt = open("weibo_test.txt", "r", encoding="utf-8-sig").read()
+words = jieba.lcut(weibo_txt)
 
-"""
-with open("angry.txt", encoding='utf-8') as f:
-    content = f.read().splitlines()
-    angry_data.append(content)
-    f.close()
 
-with open("disgusted.txt", encoding='utf-8') as f:
-    content = f.read().splitlines()
-    disgusted_data.append(content)
-    f.close()
-
-with open("happy.txt", encoding='utf-8') as f:
-    content = f.read().splitlines()
-    happy_data.append(content)
-    f.close()
-
-with open("sad.txt", encoding='utf-8') as f:
-    content = f.read().splitlines()
-    sad_data.append(content)
-    f.close()
-
-with open("scared.txt", encoding='utf-8') as f:
-    content = f.read().splitlines()
-    scared_data.append(content)
-    f.close()
-"""
-print(scared_data)
 
