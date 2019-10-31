@@ -33,5 +33,4 @@ scared_data.append(scared_txt)
 weibo_txt = open("weibo_test.txt", "r", encoding="utf-8-sig").read()
 words = jieba.lcut(weibo_txt)
 
-
-
+print(words)
