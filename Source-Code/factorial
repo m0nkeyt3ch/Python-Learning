@@ -1,0 +1,11 @@
+import math
+
+n=int(input("Input a number to compute the factiorial : "))
+
+factor = 0
+
+for i in range(n):
+    factor += math.factorial(i+1)
+
+print(factor)
+
