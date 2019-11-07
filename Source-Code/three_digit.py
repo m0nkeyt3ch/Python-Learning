@@ -1,4 +1,11 @@
-n = int(input("enter your integer: "))
+n = int(input("enter your 3 digit integer: "))
+count = 0
+while(count != 3):
+    m = int(input("enter your integer: "))
 
-while(n/100 == 0 or n / 10 == 0):
-    print("Wrong input")
+    if(m == n):
+        print("true")
+        break
+    elif(m != n):
+        count += 1
+        print("input the right integer " + "error", count)

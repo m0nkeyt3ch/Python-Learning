@@ -1,4 +1,5 @@
-side = int(input())
-c = '*'
+side = int(input("input sides: "))
+
 for i in range(side):
-    print((c*i).rjust(side-1)+c+(c*i).ljust(side-1))
+    print(' ' * (side - i - 1) + '*' * (2 * i + 1))
+    # single whitespace present in the print statement string
