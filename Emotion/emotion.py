@@ -1,49 +1,69 @@
-import numpy
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import jieba
+import os
 
-angry_data = {}
-disgusted_data = []
-happy_data = []
-sad_data = []
-scared_data = []
+def import_text(filepath):
+    weibo = pd.DataFrame(index=np.arange(5000),
+    columns=['text','coord1','coord2','datetime'])
+    with open(filepath, 'r') as f:
+        cnt = 0
+        for line in f:
+            line = (line.strip()).split()
+            if line[3] == 'Tue':
+                weibo.loc[cnt,:] = [line[0],float(line[1]),float(line[2]), np.nan]
+                weibo.loc[cnt, 'text'] = weibo.loc[cnt, 'text'].split('http')[0]
+                # datetime: exact to minute
+                weibo.loc[cnt,'datetime'] = datetime(int(line[8]), 7, int(line[5]),
+                int(line[6].split(':')[0]), int(line[6].split(':')[1]))
+                cnt += 1
+    weibo = weibo.dropna()
+    # July 08 Tue and sort by time
+    weibo = weibo.sort_values(by=['datetime'])
+    return weibo[['text','coord1','coord2','datetime']]
 
-angry_count = 0
-happy_count = 0
-disgusted_count = 0
-sad_count = 0
-scared_count = 0
+def import_dict(dictpath):
+    all_dicts = {}
+    dict_list = os.listdir(dictpath)
+    for dict in dict_list:
+        jieba.load_userdict(dictpath+'/'+dict) # load to jieba
+        dict_words = []
+        with open(dictpath+'/'+dict, 'r') as f:
+            for word in f:
+                dict_words.append(word.strip())
+        all_dicts[dict[:-4]] = dict_words
+    return all_dicts
 
-angry_txt = open("angry.txt", "r", encoding='utf-8-sig').read().splitlines()
+def emo_dic_freq(weibo, dicts):
+    emotions = ['angry','disgusted','happy','sad','scared']
+    weibo = pd.concat([weibo, pd.DataFrame(index=weibo.index, columns=emotions)],axis=1)
+    weibo[emotions] = 0
+    # word count
+    for i in weibo.index:
+        for w in jieba.cut(weibo.loc[i,'text']):
+            for emo in emotions:
+                if w in dicts[emo]:
+                    weibo.loc[i, emo] += 1
+    return weibo
 
-
-disgusted_txt = open("disgusted.txt", "r", encoding='utf-8-sig').read().splitlines()
-disgusted_data.append(disgusted_txt)
-
-happy_txt = open("happy.txt", "r", encoding='utf-8-sig').read().splitlines()
-happy_data.append(happy_txt)
-
-sad_txt = open("sad.txt", "r", encoding='utf-8-sig').read().splitlines()
-sad_data.append(sad_txt)
-
-scared_txt = open("scared.txt", "r", encoding='utf-8-sig').read().splitlines()
-scared_data.append(scared_txt)
-
-weibo_txt = open("weibo_test.txt", "r", encoding='utf-8-sig').read()
-words = jieba.lcut(weibo_txt)
-
-for word in words:
-    word = word.replace(" ", "")
-    print(word)
-
-
-D = {u'Label1':26, u'Label2': 17, u'Label3':30}
-
-plt.bar(range(len(D)), list(D.values()), align='center')
-#plt.xticks(range(len(D)), list(D.keys()))
-# # for python 2.x:
-# plt.bar(range(len(D)), D.values(), align='center')  # python 2.x
-# plt.xticks(range(len(D)), D.keys())  # in python 2.x
-
-plt.show()
+def main():
+    # if dataframe exist, then load
+    if os.path.exists("./weibo_initial.pkl"):
+        weibos = pd.read_pickle("./weibo_initial.pkl")
+    else:
+        text_path = 'data/weibo_test.txt'
+    weibos = import_text(text_path)
+    weibos.to_pickle("./weibo_initial.pkl")
+    print(weibos.shape)
+    # import to jieba user dict and save as list category
+    dictpath = 'data/emotion_dictionary_test'
+    all_dicts = import_dict(dictpath)
+    # count emotion vector
+    if os.path.exists("./weibo_emotions.pkl"):
+        weibos = pd.read_pickle("./weibo_emotions.pkl")
+    else:
+        weibos = emo_dic_freq(weibos, all_dicts)
+    weibos.to_pickle("./weibo_emotions.pkl")
+    print(weibos.shape)
+    print(weibos.iloc[:10, -5:])
