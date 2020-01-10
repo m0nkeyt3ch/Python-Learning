@@ -1,5 +1,10 @@
 from operator import itemgetter
 
+def sort_byno(dictionary):
+    for data in dictionary:
+        for item in sorted(data['math']):
+            print(item)
+
 StuDict = [
     {'no': 'stu1', 'math': 67, 'english': 76, 'python': 84},
     {'no': 'stu2', 'math': 72, 'english': 84, 'python': 79},
@@ -7,20 +12,12 @@ StuDict = [
     {'no': 'stu4', 'math': 82, 'english': 66, 'python': 85}
 ]
 
-StuGrade = {
-    'stu1':[67, 76, 84],
-    'stu2':[72, 84, 79],
-    'stu3':[89, 80, 91],
-    'stu4':[82, 66, 85]
-}
-
-avgdict ={}
 
 #print(StuDict['no'])
 print("By No:")
-for key in sorted(StuDict, key=itemgetter('no')):
-    print(key)
+sort_byno(StuDict)
 
+"""
 print("\n")
 print("By Grade:")
 for grade in sorted(StuDict, key=itemgetter('math')):
@@ -32,4 +29,4 @@ for i, j in StuGrade.items():
 print("\n")
 print("By avg:")
 print(sorted(avgdict.values()))
-
+"""
